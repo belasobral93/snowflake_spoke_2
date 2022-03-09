@@ -55,6 +55,20 @@ models:
   
   snowflake_spend:
     enabled: true
+
+  # this must be set in order to pull data from an upstream project WITHOUT redefining the views / tables in the user's development schema!
+
+  cross_project_source: #name_of_model
+    staging: #subdirectories
+      +schema: staging
+            #If a custom schema is not specified, the schema of the relation is the target schema ({{ target.schema }}).
+  
+  cross_project_target:
+    +persist_docs:
+      relation: True
+      columns: True
+    marts:
+      +schema: marts 
       
 seeds:
   tpch:
@@ -62,3 +76,5 @@ seeds:
       +column_types:
         effective_date: DATE
         rate: NUMBER   
+
+  
